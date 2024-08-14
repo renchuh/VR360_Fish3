@@ -208,17 +208,17 @@ PrefabInstance:
     - target: {fileID: 1085979409079994653, guid: 287c6ac7a9a4f63489dd886a0b808d9e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.1060001
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: 1085979409079994653, guid: 287c6ac7a9a4f63489dd886a0b808d9e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 36.95
+      value: 47.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085979409079994653, guid: 287c6ac7a9a4f63489dd886a0b808d9e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.4
+      value: 3.46
       objectReference: {fileID: 0}
     - target: {fileID: 1085979409079994653, guid: 287c6ac7a9a4f63489dd886a0b808d9e,
         type: 3}
@@ -519,11 +519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c067e49a265f9cf4ea817ac30eee9958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 0
-  nSecond: 1
-  entered: 0
-  SceneName: 
-  Player: {fileID: 858404731}
 --- !u!4 &858404733
 Transform:
   m_ObjectHideFlags: 0
@@ -808,7 +803,7 @@ PrefabInstance:
     - target: {fileID: 1085979409079994653, guid: 287c6ac7a9a4f63489dd886a0b808d9e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 36.95
+      value: 47.5
       objectReference: {fileID: 0}
     - target: {fileID: 1085979409079994653, guid: 287c6ac7a9a4f63489dd886a0b808d9e,
         type: 3}
