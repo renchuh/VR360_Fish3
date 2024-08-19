@@ -73,8 +73,17 @@ public class Flock1 : MonoBehaviour
 
     private void Update()
     {
+        Vector3 averageForward = Vector3.zero;
         for (int i = 0; i < allUnits.Length; i++)
         {
+            averageForward += allUnits[i].myTransform.forward;
+        }
+        averageForward /= allUnits.Length;
+        averageForward = averageForward.normalized;
+
+        for (int i = 0; i < allUnits.Length; i++)
+        {
+            allUnits[i].myTransform.forward = Vector3.Slerp(allUnits[i].myTransform.forward, averageForward, Time.deltaTime * 0.5f);
             allUnits[i].MoveUnit();
         }
     }

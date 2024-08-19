@@ -36,27 +36,35 @@ public class FlockUnit : MonoBehaviour
 	}
 
 	public void MoveUnit()
-	{
-		FindNeighbours();
-		CalculateSpeed();
+{
+    FindNeighbours();
+    CalculateSpeed();
 
-		var cohesionVector = CalculateCohesionVector() * assignedFlock.cohesionWeight;
-		var avoidanceVector = CalculateAvoidanceVector() * assignedFlock.avoidanceWeight;
-		var aligementVector = CalculateAligementVector() * assignedFlock.aligementWeight;
-		var boundsVector = CalculateBoundsVector() * assignedFlock.boundsWeight;
-		var obstacleVector = CalculateObstacleVector() * assignedFlock.obstacleWeight;
+    var cohesionVector = CalculateCohesionVector() * assignedFlock.cohesionWeight;
+    var avoidanceVector = CalculateAvoidanceVector() * assignedFlock.avoidanceWeight;
+    var aligementVector = CalculateAligementVector() * assignedFlock.aligementWeight;
+    var boundsVector = CalculateBoundsVector() * assignedFlock.boundsWeight;
+    var obstacleVector = CalculateObstacleVector() * assignedFlock.obstacleWeight;
 
-		var moveVector = cohesionVector + avoidanceVector + aligementVector + boundsVector + obstacleVector;
-		moveVector = Vector3.SmoothDamp(myTransform.forward, moveVector, ref currentVelocity, smoothDamp);
-		moveVector = moveVector.normalized * speed;
-		if (moveVector == Vector3.zero)
-			moveVector = transform.forward;
+    var moveVector = cohesionVector + avoidanceVector + aligementVector + boundsVector + obstacleVector;
+    moveVector = Vector3.SmoothDamp(myTransform.forward, moveVector, ref currentVelocity, smoothDamp);
+    moveVector = moveVector.normalized * speed;
 
-		myTransform.forward = moveVector;
-		myTransform.position += moveVector * Time.deltaTime;
-	}
+    // 新增方向修正
+    if(Vector3.Dot(moveVector, myTransform.forward) < 0)
+    {
+        moveVector = -moveVector;
+    }
 
-	
+    if (moveVector == Vector3.zero)
+        moveVector = transform.forward;
+
+    myTransform.forward = moveVector;
+    myTransform.position += moveVector * Time.deltaTime;
+}
+
+
+
 
 	private void FindNeighbours()
 	{
@@ -175,6 +183,12 @@ public class FlockUnit : MonoBehaviour
 		if (Physics.Raycast(myTransform.position, myTransform.forward, out hit, assignedFlock.obstacleDistance, obstacleMask))
 		{
 			obstacleVector = FindBestDirectionToAvoidObstacle();
+
+			// 確保障礙物避免向量與前進方向一致
+			if (Vector3.Dot(obstacleVector, myTransform.forward) < 0)
+			{
+				obstacleVector = -obstacleVector; // 反轉方向
+			}
 		}
 		else
 		{
@@ -182,6 +196,7 @@ public class FlockUnit : MonoBehaviour
 		}
 		return obstacleVector;
 	}
+
 
 	private Vector3 FindBestDirectionToAvoidObstacle()
 	{
